@@ -9,7 +9,7 @@ DROP SEQUENCE tb_registro_id_registro_seq;
 -- Tabela para armazenar os usuários (empresas)
 CREATE TABLE tb_usuario (
     id_usuario       INTEGER NOT NULL,
-    nomeEmpresa VARCHAR2(255) NOT NULL,
+    nome_empresa VARCHAR2(255) NOT NULL,
     email VARCHAR2(255) UNIQUE NOT NULL,
     cnpj VARCHAR2(18) UNIQUE NOT NULL
 );
@@ -35,7 +35,7 @@ CREATE TABLE tb_registro (
     id_usuario        INTEGER NOT NULL,
     tipo_aviao VARCHAR2(50) NOT NULL,
     distancia NUMBER NOT NULL,
-    emissaoCalculada NUMBER NOT NULL,
+    emissao_calculada NUMBER NOT NULL,
     data_registro DATE NOT NULL
 );
 
