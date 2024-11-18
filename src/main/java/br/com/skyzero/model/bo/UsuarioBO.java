@@ -4,7 +4,6 @@ import br.com.skyzero.model.dao.UsuarioDAO;
 import br.com.skyzero.model.vo.Usuario;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class UsuarioBO {
@@ -21,10 +20,6 @@ public class UsuarioBO {
 
     public Usuario buscarUsuario(int id) throws SQLException {
         return usuarioDAO.buscar(id);
-    }
-
-    public List<Usuario> listarUsuarios() throws SQLException {
-        return usuarioDAO.listar();
     }
 
     private void validarUsuario(Usuario usuario) {

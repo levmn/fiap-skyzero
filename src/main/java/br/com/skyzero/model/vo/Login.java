@@ -1,30 +1,20 @@
 package br.com.skyzero.model.vo;
 
 public class Login {
-    private Usuario usuario;
-    private String login;
+    private String cnpj;
     private String senha;
 
-    public Login(Usuario usuario, String login, String senha) {
-        this.usuario = usuario;
-        this.login = login;
+    public Login(String cnpj, String senha) {
+        this.cnpj = cnpj;
         this.senha = senha;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     public String getSenha() {
@@ -38,8 +28,7 @@ public class Login {
     @Override
     public String toString() {
         return "Login{" +
-                "usuario=" + usuario +
-                ", login='" + login + '\'' +
+                "cnpj='" + cnpj + '\'' +
                 ", senha='" + senha + '\'' +
                 '}';
     }

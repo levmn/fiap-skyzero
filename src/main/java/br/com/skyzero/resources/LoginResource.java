@@ -15,16 +15,12 @@ import java.sql.SQLException;
 public class LoginResource {
     private LoginBO loginBO;
 
-    public LoginResource() {
-        this.loginBO = new LoginBO();
-    }
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(Login credentials) {
         try {
-            Login usuarioAutenticado = loginBO.autenticar(credentials.getLogin(), credentials.getSenha());
+            Login usuarioAutenticado = loginBO.autenticar(credentials.getCnpj(), credentials.getSenha());
             return Response.ok(usuarioAutenticado).build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.UNAUTHORIZED)

@@ -7,8 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UsuarioDAO {
     private Connection conn;
@@ -18,16 +16,24 @@ public class UsuarioDAO {
     }
 
     public String inserir(Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO tb_usuario VALUES (tb_usuario_id_usuario_seq.NEXTVAL, ?, ?, ?)";
+        String sqlUsuario = "INSERT INTO tb_usuario (id_usuario, nome_empresa, email, cnpj) " +
+                "VALUES (tb_usuario_id_usuario_seq.NEXTVAL, ?, ?, ?)";
+        String sqlLogin = "INSERT INTO tb_login (id_usuario, senha) " +
+                "VALUES (tb_usuario_id_usuario_seq.CURRVAL, ?)";
 
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, usuario.getNomeEmpresa());
-        stmt.setString(2, usuario.getEmail());
-        stmt.setString(3, usuario.getCnpj());
-        stmt.execute();
-        stmt.close();
+        try (PreparedStatement stmtUsuario = conn.prepareStatement(sqlUsuario);
+             PreparedStatement stmtLogin = conn.prepareStatement(sqlLogin)) {
 
-        return "Usuário cadastrado com sucesso!";
+            stmtUsuario.setString(1, usuario.getNomeEmpresa());
+            stmtUsuario.setString(2, usuario.getEmail());
+            stmtUsuario.setString(3, usuario.getCnpj());
+            stmtUsuario.executeUpdate();
+
+            stmtLogin.setString(1, usuario.getLogin().getSenha());
+            stmtLogin.executeUpdate();
+
+            return "Usuário e login cadastrados com sucesso!";
+        }
     }
 
     public Usuario buscar(int id) throws SQLException {
@@ -52,22 +58,4 @@ public class UsuarioDAO {
 
         return usuario;
     }
-
-    public List<Usuario> listar() throws SQLException {
-        List<Usuario> listaUsuario = new ArrayList<Usuario>();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM tb_usuario");
-
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-            Usuario usuario = new Usuario();
-            usuario.setId(rs.getInt("id_usuario"));
-            usuario.setNomeEmpresa(rs.getString("nome_empresa"));
-            usuario.setEmail(rs.getString("email"));
-            usuario.setCnpj(rs.getString("cnpj"));
-            listaUsuario.add(usuario);
-        }
-        return listaUsuario;
-    }
-
 }

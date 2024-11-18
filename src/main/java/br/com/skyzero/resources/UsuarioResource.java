@@ -7,9 +7,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.sql.SQLException;
-import java.util.List;
 
-@Path("/usuarios")
+@Path("/usuario")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UsuarioResource {
@@ -48,18 +47,6 @@ public class UsuarioResource {
         } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Erro ao buscar o usuário no banco de dados: " + e.getMessage())
-                    .build();
-        }
-    }
-
-    @GET
-    public Response listarUsuarios() {
-        try {
-            List<Usuario> usuarios = usuarioBO.listarUsuarios();
-            return Response.ok(usuarios).build();
-        } catch (SQLException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Erro ao listar os usuários: " + e.getMessage())
                     .build();
         }
     }

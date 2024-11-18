@@ -5,15 +5,17 @@ public class Usuario {
     private String nomeEmpresa;
     private String email;
     private String cnpj;
+    private Login login;
 
     public Usuario() {
     }
 
-    public Usuario(int id, String nomeEmpresa, String email, String cnpj) {
+    public Usuario(int id, String nomeEmpresa, String email, String cnpj, Login login) {
         this.id = id;
         this.nomeEmpresa = nomeEmpresa;
         this.email = email;
         this.cnpj = cnpj;
+        this.login = login;
     }
 
     public int getId() {
@@ -48,13 +50,11 @@ public class Usuario {
         this.cnpj = cnpj;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nomeEmpresa='" + nomeEmpresa + '\'' +
-                ", email='" + email + '\'' +
-                ", cnpj='" + cnpj + '\'' +
-                '}';
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
     }
 }
