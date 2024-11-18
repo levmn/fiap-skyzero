@@ -18,7 +18,7 @@ public class UsuarioDAO {
     }
 
     public String inserir(Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO tb_usuario VALUES (tb_usuario_id_usuario_seq.NEXTVAL, ?, ?, ?";
+        String sql = "INSERT INTO tb_usuario VALUES (tb_usuario_id_usuario_seq.NEXTVAL, ?, ?, ?)";
 
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, usuario.getNomeEmpresa());
