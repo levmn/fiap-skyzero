@@ -11,7 +11,7 @@ CREATE TABLE tb_usuario (
     id_usuario       INTEGER NOT NULL,
     nome_empresa VARCHAR2(255) NOT NULL,
     email VARCHAR2(255) UNIQUE NOT NULL,
-    cnpj VARCHAR2(18) UNIQUE NOT NULL
+    cnpj VARCHAR2(14) UNIQUE NOT NULL
 );
 
 ALTER TABLE tb_usuario ADD CONSTRAINT tb_usuario_id_usuario_pk PRIMARY KEY ( id_usuario );
@@ -19,7 +19,7 @@ ALTER TABLE tb_usuario ADD CONSTRAINT tb_usuario_id_usuario_pk PRIMARY KEY ( id_
 -- Tabela para armazenar os logins (associados aos usuários)
 CREATE TABLE tb_login (
     id_usuario    INTEGER NOT NULL,
-    login VARCHAR2(18) UNIQUE NOT NULL,
+    login VARCHAR2(14) UNIQUE NOT NULL,
     senha VARCHAR2(255) NOT NULL
 );
 
