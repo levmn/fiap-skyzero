@@ -8,6 +8,10 @@ import java.sql.SQLException;
 public class LoginBO {
     private LoginDAO loginDAO;
 
+    public LoginBO() {
+        this.loginDAO = new LoginDAO();
+    }
+
     public Login autenticar(String cnpj, String senha) throws SQLException {
         validarCredenciais(cnpj, senha);
 

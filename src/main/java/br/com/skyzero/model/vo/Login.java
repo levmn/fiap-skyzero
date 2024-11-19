@@ -4,6 +4,9 @@ public class Login {
     private String cnpj;
     private String senha;
 
+    public Login() {
+    }
+
     public Login(String cnpj, String senha) {
         this.cnpj = cnpj;
         this.senha = senha;

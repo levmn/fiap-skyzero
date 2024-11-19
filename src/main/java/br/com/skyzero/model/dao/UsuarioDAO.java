@@ -18,8 +18,8 @@ public class UsuarioDAO {
     public String inserir(Usuario usuario) throws SQLException {
         String sqlUsuario = "INSERT INTO tb_usuario (id_usuario, nome_empresa, email, cnpj) " +
                 "VALUES (tb_usuario_id_usuario_seq.NEXTVAL, ?, ?, ?)";
-        String sqlLogin = "INSERT INTO tb_login (id_usuario, senha) " +
-                "VALUES (tb_usuario_id_usuario_seq.CURRVAL, ?)";
+        String sqlLogin = "INSERT INTO tb_login (id_usuario, cnpj, senha) " +
+                "VALUES (tb_usuario_id_usuario_seq.CURRVAL, ?, ?)";
 
         try (PreparedStatement stmtUsuario = conn.prepareStatement(sqlUsuario);
              PreparedStatement stmtLogin = conn.prepareStatement(sqlLogin)) {
@@ -29,10 +29,11 @@ public class UsuarioDAO {
             stmtUsuario.setString(3, usuario.getCnpj());
             stmtUsuario.executeUpdate();
 
-            stmtLogin.setString(1, usuario.getLogin().getSenha());
+            stmtLogin.setString(1, usuario.getLogin().getCnpj());
+            stmtLogin.setString(2, usuario.getLogin().getSenha());
             stmtLogin.executeUpdate();
 
-            return "Usuário e login cadastrados com sucesso!";
+            return "Usuário cadastrado com sucesso!";
         }
     }
 
@@ -57,5 +58,23 @@ public class UsuarioDAO {
         }
 
         return usuario;
+    }
+
+    public Usuario buscarPorCNPJ(String cnpj) throws SQLException {
+        String sql = "SELECT * FROM usuarios WHERE cnpj = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, cnpj);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Usuario usuario = new Usuario();
+                    usuario.setId(rs.getInt("id_usuario"));
+                    usuario.setNomeEmpresa(rs.getString("nome_empresa"));
+                    usuario.setEmail(rs.getString("email"));
+                    usuario.setCnpj(rs.getString("cnpj"));
+                    return usuario;
+                }
+            }
+        }
+        return null;
     }
 }

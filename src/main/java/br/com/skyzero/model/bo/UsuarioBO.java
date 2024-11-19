@@ -1,6 +1,7 @@
 package br.com.skyzero.model.bo;
 
 import br.com.skyzero.model.dao.UsuarioDAO;
+import br.com.skyzero.model.vo.Login;
 import br.com.skyzero.model.vo.Usuario;
 
 import java.sql.SQLException;
@@ -15,6 +16,12 @@ public class UsuarioBO {
 
     public String cadastrarUsuario(Usuario usuario) throws SQLException {
         validarUsuario(usuario);
+
+        Login login = usuario.getLogin();
+        if (!usuario.getCnpj().equals(login.getCnpj())) {
+            throw new IllegalArgumentException("O CNPJ do login não corresponde ao CNPJ da empresa.");
+        }
+
         return usuarioDAO.inserir(usuario);
     }
 

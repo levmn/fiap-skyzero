@@ -19,7 +19,7 @@ ALTER TABLE tb_usuario ADD CONSTRAINT tb_usuario_id_usuario_pk PRIMARY KEY (id_u
 -- Tabela para armazenar os logins (associados aos usuários)
 CREATE TABLE tb_login (
     id_usuario    INTEGER NOT NULL,
-    login VARCHAR2(14) UNIQUE NOT NULL,
+    cnpj VARCHAR2(14) UNIQUE NOT NULL,
     senha VARCHAR2(255) NOT NULL
 );
 
@@ -34,9 +34,9 @@ CREATE TABLE tb_registro (
     id_registro       INTEGER NOT NULL,
     id_usuario        INTEGER NOT NULL,
     tipo_aviao VARCHAR2(50) NOT NULL,
-    distancia NUMBER NOT NULL,
-    emissao_calculada NUMBER NOT NULL,
-    data_registro DATE NOT NULL
+    distancia NUMBER,
+    emissao_calculada NUMBER,
+    data_registro DATE
 );
 
 ALTER TABLE tb_registro ADD CONSTRAINT tb_registro_id_registro_pk PRIMARY KEY ( id_registro );

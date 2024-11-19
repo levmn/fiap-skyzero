@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 @Path("/login")
 public class LoginResource {
-    private LoginBO loginBO;
+    private LoginBO loginBO = new LoginBO();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

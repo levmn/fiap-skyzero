@@ -1,5 +1,6 @@
 package br.com.skyzero.model.dao;
 
+import br.com.skyzero.connection.Conexao;
 import br.com.skyzero.model.vo.Login;
 
 import java.sql.Connection;
@@ -10,8 +11,8 @@ import java.sql.SQLException;
 public class LoginDAO {
     private Connection conn;
 
-    public LoginDAO(Connection conn) {
-        this.conn = conn;
+    public LoginDAO() {
+        this.conn = new Conexao().conexao();
     }
 
     public Login autenticar(String cnpj, String senha) throws SQLException {
