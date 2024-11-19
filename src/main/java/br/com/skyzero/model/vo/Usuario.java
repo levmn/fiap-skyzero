@@ -10,6 +10,10 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(int id) {
+        this.id = id;
+    }
+
     public Usuario(int id, String nomeEmpresa, String email, String cnpj, Login login) {
         this.id = id;
         this.nomeEmpresa = nomeEmpresa;

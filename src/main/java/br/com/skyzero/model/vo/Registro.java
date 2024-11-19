@@ -10,6 +10,9 @@ public class Registro {
     private double emissaoCalculada;
     private Date dataRegistro;
 
+    public Registro() {
+    }
+
     public Registro(int id, Usuario usuario, String tipoAviao, double distancia, double emissaoCalculada, Date dataRegistro) {
         this.id = id;
         this.usuario = usuario;

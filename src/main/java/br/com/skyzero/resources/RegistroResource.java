@@ -1,5 +1,66 @@
 package br.com.skyzero.resources;
 
-public class RegistroResource {
+import br.com.skyzero.model.bo.RegistroBO;
+import br.com.skyzero.model.vo.Registro;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
+import java.sql.SQLException;
+
+@Path("/registro")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class RegistroResource {
+    private final RegistroBO registroBO;
+
+    public RegistroResource() {
+        this.registroBO = new RegistroBO();
+    }
+
+    @POST
+    public Response criarRegistro(Registro registro) {
+        try {
+            int idRegistro = registroBO.cadastrarRegistro(registro);
+            return Response.status(Response.Status.CREATED)
+                    .entity("Registro criado com ID: " + idRegistro)
+                    .build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Erro ao criar o registro: " + e.getMessage())
+                    .build();
+        }
+    }
+
+    @PUT
+    @Path("/{id}/calcular")
+    public Response atualizarEmissao(@PathParam("id") int id, Registro registro) {
+        try {
+            registroBO.calcularEmissao(id, registro.getTipoAviao(), registro.getDistancia());
+            return Response.ok("Emissão calculada e atualizada.").build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Erro ao atualizar o registro: " + e.getMessage())
+                    .build();
+        }
+    }
+
+    @GET
+    public Response listarRegistros() {
+        try {
+            return Response.ok(registroBO.listarRegistros()).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Erro ao listar registros: " + e.getMessage())
+                    .build();
+        }
+    }
 }
