@@ -20,8 +20,6 @@ public class CarbonApiService {
                 .add("type", tipoAviao)
                 .build();
 
-        System.out.println("JSON enviado para API externa: " + jsonRequest);
-
         Response response = client.target(API_URL)
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(jsonRequest));
@@ -32,7 +30,6 @@ public class CarbonApiService {
             }
 
             JsonObject jsonResponse = response.readEntity(JsonObject.class);
-            System.out.println("Resposta da API externa: " + jsonResponse);
 
             return jsonResponse.getJsonNumber("emission").doubleValue();
 
