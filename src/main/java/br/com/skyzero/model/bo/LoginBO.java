@@ -19,7 +19,7 @@ public class LoginBO {
         if (loginAutenticado == null) {
             throw new IllegalArgumentException("CNPJ ou senha inválidos.");
         }
-        return loginAutenticado;
+        return loginAutenticado; // TO DO: devolver id do login
     }
 
     private void validarCredenciais(String cnpj, String senha) {

@@ -17,13 +17,13 @@ public class RegistroBO {
         this.carbonApiService = new CarbonApiService();
     }
 
-    public int cadastrarRegistro(Registro registro) throws SQLException {
+    public Registro cadastrarRegistro(Registro registro) throws SQLException {
         validarRegistro(registro);
         registro.setDataRegistro(new Date());
         return registroDAO.inserir(registro);
     }
 
-    public void calcularEmissao(int idRegistro, String tipoAviao, double distancia) throws SQLException {
+    public void calcularEmissao(int idRegistro, String tipoAviao, int distancia) throws SQLException {
         if (distancia <= 0) {
             throw new IllegalArgumentException("A distância deve ser maior que zero.");
         }
@@ -31,6 +31,10 @@ public class RegistroBO {
         double emissaoCalculada = carbonApiService.calcularEmissao(tipoAviao, distancia);
 
         registroDAO.atualizar(idRegistro, emissaoCalculada);
+    }
+
+    public List<Registro> listarRegistroPorUsuario(int usuarioId) throws SQLException {
+        return registroDAO.listarPorUsuario(usuarioId);
     }
 
     public List<Registro> listarRegistros() throws SQLException {

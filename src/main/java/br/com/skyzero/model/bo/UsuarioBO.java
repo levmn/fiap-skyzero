@@ -26,7 +26,7 @@ public class UsuarioBO {
     }
 
     public Usuario buscarUsuario(int id) throws SQLException {
-        return usuarioDAO.buscar(id);
+        return usuarioDAO.buscar(id); // TO DO: devolver informações do usuário
     }
 
     private void validarUsuario(Usuario usuario) {

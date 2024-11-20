@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Path("/registro")
 @Produces(MediaType.APPLICATION_JSON)
@@ -21,9 +22,9 @@ public class RegistroResource {
     @POST
     public Response criarRegistro(Registro registro) {
         try {
-            int idRegistro = registroBO.cadastrarRegistro(registro);
+            Registro registroCadastrado = registroBO.cadastrarRegistro(registro);
             return Response.status(Response.Status.CREATED)
-                    .entity("Registro criado com ID: " + idRegistro)
+                    .entity(registroCadastrado)
                     .build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -49,6 +50,19 @@ public class RegistroResource {
         } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Erro ao atualizar o registro: " + e.getMessage())
+                    .build();
+        }
+    }
+
+    @GET
+    @Path("/usuario/{id}")
+    public Response listarRegistroPorUsuario(@PathParam("id") int usuarioId) {
+        try {
+            List<Registro> registros = registroBO.listarRegistroPorUsuario(usuarioId);
+            return Response.ok(registros).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Erro ao listar registros: " + e.getMessage())
                     .build();
         }
     }

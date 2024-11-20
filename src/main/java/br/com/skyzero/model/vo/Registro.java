@@ -6,14 +6,14 @@ public class Registro {
     private int id;
     private Usuario usuario;
     private String tipoAviao;
-    private double distancia;
+    private int distancia;
     private double emissaoCalculada;
     private Date dataRegistro;
 
     public Registro() {
     }
 
-    public Registro(int id, Usuario usuario, String tipoAviao, double distancia, double emissaoCalculada, Date dataRegistro) {
+    public Registro(int id, Usuario usuario, String tipoAviao, int distancia, double emissaoCalculada, Date dataRegistro) {
         this.id = id;
         this.usuario = usuario;
         this.tipoAviao = tipoAviao;
@@ -46,11 +46,11 @@ public class Registro {
         this.tipoAviao = tipoAviao;
     }
 
-    public double getDistancia() {
+    public int getDistancia() {
         return distancia;
     }
 
-    public void setDistancia(double distancia) {
+    public void setDistancia(int distancia) {
         this.distancia = distancia;
     }
 
