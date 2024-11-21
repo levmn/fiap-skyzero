@@ -10,6 +10,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 @Path("/login")
 public class LoginResource {
@@ -20,7 +21,7 @@ public class LoginResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(Login credentials) {
         try {
-            Login usuarioAutenticado = loginBO.autenticar(credentials.getCnpj(), credentials.getSenha());
+            Map<String, Object> usuarioAutenticado = loginBO.autenticar(credentials.getCnpj(), credentials.getSenha());
             return Response.ok(usuarioAutenticado).build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.UNAUTHORIZED)

@@ -1,9 +1,9 @@
 package br.com.skyzero.model.bo;
 
 import br.com.skyzero.model.dao.LoginDAO;
-import br.com.skyzero.model.vo.Login;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 public class LoginBO {
     private LoginDAO loginDAO;
@@ -12,14 +12,14 @@ public class LoginBO {
         this.loginDAO = new LoginDAO();
     }
 
-    public Login autenticar(String cnpj, String senha) throws SQLException {
+    public Map<String, Object> autenticar(String cnpj, String senha) throws SQLException {
         validarCredenciais(cnpj, senha);
 
-        Login loginAutenticado = loginDAO.autenticar(cnpj, senha);
+        Map<String, Object> loginAutenticado = loginDAO.autenticar(cnpj, senha);
         if (loginAutenticado == null) {
             throw new IllegalArgumentException("CNPJ ou senha inválidos.");
         }
-        return loginAutenticado; // TO DO: devolver id do usuário
+        return loginAutenticado;
     }
 
     private void validarCredenciais(String cnpj, String senha) {

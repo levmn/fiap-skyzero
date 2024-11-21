@@ -1,12 +1,13 @@
 package br.com.skyzero.model.dao;
 
 import br.com.skyzero.connection.Conexao;
-import br.com.skyzero.model.vo.Login;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginDAO {
     private Connection conn;
@@ -15,7 +16,7 @@ public class LoginDAO {
         this.conn = new Conexao().conexao();
     }
 
-    public Login autenticar(String cnpj, String senha) throws SQLException {
+    public Map<String, Object> autenticar(String cnpj, String senha) throws SQLException {
         String sql = "SELECT u.cnpj, l.senha " +
                 "FROM tb_usuario u " +
                 "JOIN tb_login l ON u.id_usuario = l.id_usuario " +
@@ -27,7 +28,10 @@ public class LoginDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new Login(rs.getString("cnpj"), rs.getString("senha"));
+                    Map<String, Object> result = new HashMap<>();
+                    result.put("id_usuario", rs.getInt("id_usuario"));
+                    result.put("cnpj", rs.getString("cnpj"));
+                    return result;
                 }
             }
         }
