@@ -79,7 +79,7 @@ public class RegistroResource {
     }
 
     @DELETE
-    @Path("delete/{id}")
+    @Path("deletar/{id}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deletarRegistro(@PathParam("id") int id) {
         try {

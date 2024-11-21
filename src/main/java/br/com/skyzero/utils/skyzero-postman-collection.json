@@ -239,6 +239,27 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Deletar registro",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/registro/deletar/{{id}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "registro",
+            "deletar",
+            "{{id}}"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "variable": [
