@@ -52,6 +52,48 @@ public class RegistroDAO {
         }
     }
 
+    public Registro buscarPorId(int id) throws SQLException {
+        String sql = "SELECT * FROM tb_registro WHERE id_registro = ?";
+        Registro registro = null;
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                registro = new Registro();
+                registro.setId(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Erro ao encontrar registro pelo id: " + id, e);
+        }
+
+        return registro;
+    }
+
+    public List<Registro> listar() throws SQLException {
+        String sql = "SELECT * FROM tb_registro";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            List<Registro> registros = new ArrayList<>();
+            while (rs.next()) {
+                Registro registro = new Registro(
+                        rs.getInt("id_registro"),
+                        new Usuario(rs.getInt("id_usuario")),
+                        rs.getString("tipo_aviao"),
+                        rs.getInt("distancia"),
+                        rs.getDouble("emissao_calculada"),
+                        rs.getDate("data_registro")
+                );
+                registros.add(registro);
+            }
+            return registros;
+        }
+    }
+
     public List<Registro> listarPorUsuario(int usuarioId) throws SQLException {
         String sql = "SELECT * FROM tb_registro WHERE id_usuario = ?";
 
@@ -76,25 +118,14 @@ public class RegistroDAO {
         }
     }
 
-    public List<Registro> listar() throws SQLException {
-        String sql = "SELECT * FROM tb_registro";
+    public String deletar(int id) throws SQLException {
+        String sql = "DELETE FROM tb_registro WHERE id_registro = ?";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, id);
+        stmt.execute();
+        stmt.close();
 
-            List<Registro> registros = new ArrayList<>();
-            while (rs.next()) {
-                Registro registro = new Registro(
-                        rs.getInt("id_registro"),
-                        new Usuario(rs.getInt("id_usuario")),
-                        rs.getString("tipo_aviao"),
-                        rs.getInt("distancia"),
-                        rs.getDouble("emissao_calculada"),
-                        rs.getDate("data_registro")
-                );
-                registros.add(registro);
-            }
-            return registros;
-        }
+        return "Registro removido com sucesso!";
     }
 }

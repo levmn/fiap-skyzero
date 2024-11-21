@@ -1,8 +1,10 @@
 # SkyZero
 
-SkyZero é uma aplicação para registro e cálculo de emissões de carbono com base em voos. Este projeto integra back-end em Java, banco de dados Oracle, e um front-end para interface com o usuário.
+SkyZero é uma aplicação para registro e cálculo de emissões de carbono com base em voos. Este projeto integra back-end
+em Java, banco de dados Oracle, e um front-end para interface com o usuário.
 
 ## 🌐 Link do Front-End
+
 Acesse o front-end do projeto em: [SkyZero](https://fiap-gs-skyzero.vercel.app/)
 
 ## Equipe
@@ -18,9 +20,8 @@ Acesse o front-end do projeto em: [SkyZero](https://fiap-gs-skyzero.vercel.app/)
 - **.env.sample**: Arquivo de configuração na raiz do projeto que deve ser duplicado e renomeado para `.env`, onde serão
   inseridas as credenciais do banco de dados.
 - No diretório **utils** do projeto, você encontrará os arquivos:
-  - **Script SQL**: Execute os scripts SQL para criar as tabelas e sequences do banco de dados;
-  - **Arquivo JSON**: Use o arquivo de collections no Postman para realizar testes das APIs.
-
+    - **Script SQL**: Execute os scripts SQL para criar as tabelas e sequences do banco de dados;
+    - **Arquivo JSON**: Use o arquivo de collections no Postman para realizar testes das APIs.
 
 ```
 src/

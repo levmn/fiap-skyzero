@@ -77,4 +77,16 @@ public class RegistroResource {
                     .build();
         }
     }
+
+    @DELETE
+    @Path("delete/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response deletarRegistro(@PathParam("id") int id) {
+        try {
+            registroBO.deletarRegistro(id);
+            return Response.ok("Registro com ID" + id + "foi removido com sucesso!").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
 }

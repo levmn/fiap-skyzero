@@ -41,6 +41,15 @@ public class RegistroBO {
         return registroDAO.listar();
     }
 
+    public void deletarRegistro(int id) throws SQLException {
+
+        if (registroDAO.buscarPorId(id) == null) {
+            throw new IllegalArgumentException("Não foi possível encontrar o registro.");
+        }
+
+        registroDAO.deletar(id);
+    }
+
     private void validarRegistro(Registro registro) {
         if (registro.getUsuario() == null || registro.getUsuario().getId() <= 0) {
             throw new IllegalArgumentException("Usuário inválido.");
