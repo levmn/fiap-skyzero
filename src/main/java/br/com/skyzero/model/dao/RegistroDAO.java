@@ -23,12 +23,6 @@ public class RegistroDAO {
         String sqlRegistro = "INSERT INTO tb_registro (id_registro, id_usuario, tipo_aviao, distancia, data_registro) " +
                 "VALUES (tb_registro_id_registro_seq.NEXTVAL, ?, ?, ?, ?)";
 
-        System.out.println("SQL Executado: " + sqlRegistro);
-        System.out.println("Parâmetros: id_usuario=" + registro.getUsuario().getId() +
-                ", tipo_aviao=" + registro.getTipoAviao() +
-                ", distancia=" + registro.getDistancia() +
-                ", data_registro=" + registro.getDataRegistro());
-
         try (PreparedStatement stmtRegistro = conn.prepareStatement(sqlRegistro)) {
             stmtRegistro.setInt(1, registro.getUsuario().getId());
             stmtRegistro.setString(2, registro.getTipoAviao());
@@ -38,6 +32,18 @@ public class RegistroDAO {
             stmtRegistro.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Erro ao tentar registrar emissão: " + e);
+        }
+
+        String sqlBusca = "SELECT tb_registro_id_registro_seq.CURRVAL AS id_registro FROM dual";
+
+        try (PreparedStatement stmtBusca = conn.prepareStatement(sqlBusca);
+             ResultSet rs = stmtBusca.executeQuery()) {
+
+            if (rs.next()) {
+                registro.setId(rs.getInt("id_registro"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao recuperar o ID do registro: " + e);
         }
         return registro;
     }
