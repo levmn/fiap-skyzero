@@ -17,7 +17,7 @@ public class LoginDAO {
     }
 
     public Map<String, Object> autenticar(String cnpj, String senha) throws SQLException {
-        String sql = "SELECT u.cnpj, l.senha " +
+        String sql = "SELECT u.id_usuario, u.cnpj, l.senha " +
                 "FROM tb_usuario u " +
                 "JOIN tb_login l ON u.id_usuario = l.id_usuario " +
                 "WHERE u.cnpj = ? AND l.senha = ?";
