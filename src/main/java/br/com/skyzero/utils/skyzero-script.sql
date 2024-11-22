@@ -32,7 +32,7 @@ ALTER TABLE tb_login
 -- Tabela para armazenar os registros (cálculos e histórico)
 CREATE TABLE tb_registro (
     id_registro       INTEGER NOT NULL,
-    id_usuario        INTEGER NOT NULL,
+    id_usuario        INTEGER,
     tipo_aviao VARCHAR2(50) NOT NULL,
     distancia NUMBER,
     emissao_calculada NUMBER,
