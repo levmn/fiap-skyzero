@@ -41,8 +41,8 @@ public class RegistroResource {
     @Path("/{id}/calcular")
     public Response atualizarEmissao(@PathParam("id") int id, Registro registro) {
         try {
-            registroBO.calcularEmissao(id, registro);
-            return Response.ok("Emissão calculada e atualizada.").build();
+            double emissaoCalculada = registroBO.calcularEmissao(id, registro);
+            return Response.ok(emissaoCalculada).build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(e.getMessage())
